@@ -34,22 +34,63 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity
 {
-
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private RecyclerView postList;
+    private Toolbar mToolbar;
+
+    private CircleImageView NavProfileImage;
+    private TextView NavProfileUserName;
+    private ImageButton AddNewPostButton;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference UsersRef, PostsRef;
+
+    String currentUserID;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
 
+//        mAuth = FirebaseAuth.getInstance();
+//        currentUserID = mAuth.getCurrentUser().getUid();
+//        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+//        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+
+
+        mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Home");
+
+
+//        AddNewPostButton = (ImageButton) findViewById(R.id.add_new_post_button);
+
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawable_layout);
+        actionBarDrawerToggle = new ActionBarDrawerToggle(MainActivity.this, drawerLayout, R.string.drawer_open, R.string.drawer_close);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
+
+        postList = (RecyclerView) findViewById(R.id.all_users_post_list);
+        postList.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        postList.setLayoutManager(linearLayoutManager);
+
+
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
+        NavProfileImage = (CircleImageView) navView.findViewById(R.id.nav_profile_image);
+        NavProfileUserName = (TextView) navView.findViewById(R.id.nav_user_full_name);
+
 
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -60,7 +101,22 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+
     }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 
 
     private void UserMenuSelector(MenuItem item)
@@ -96,7 +152,8 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_Logout:
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                mAuth.signOut();
+//                SendUserToLoginActivity();
                 break;
         }
     }
