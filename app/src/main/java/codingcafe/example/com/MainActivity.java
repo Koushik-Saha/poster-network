@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity
 
             case R.id.nav_Logout:
                 mAuth.signOut();
-//                SendUserToLoginActivity();
+                SendUserToLoginActivity();
                 break;
         }
     }
