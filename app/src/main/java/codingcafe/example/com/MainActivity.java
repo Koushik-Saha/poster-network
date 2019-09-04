@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
 
-//        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 //        currentUserID = mAuth.getCurrentUser().getUid();
 //        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 //        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
@@ -115,6 +115,33 @@ public class MainActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    protected void onStart()
+    {
+        super.onStart();
+
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if(currentUser == null)
+        {
+            SendUserToLoginActivity();
+        }
+//        else
+//        {
+//            CheckUserExistence();
+//        }
+    }
+
+
+    private void SendUserToLoginActivity()
+    {
+        Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
     }
 
 
