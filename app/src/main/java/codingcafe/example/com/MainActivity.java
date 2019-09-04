@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         mAuth = FirebaseAuth.getInstance();
 //        currentUserID = mAuth.getCurrentUser().getUid();
-//        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
 //        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
 
@@ -129,10 +129,41 @@ public class MainActivity extends AppCompatActivity
         {
             SendUserToLoginActivity();
         }
-//        else
-//        {
-//            CheckUserExistence();
-//        }
+        else
+        {
+            CheckUserExistence();
+        }
+    }
+
+
+    private void CheckUserExistence()
+    {
+        final String current_user_id = mAuth.getCurrentUser().getUid();
+
+        UsersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if(!dataSnapshot.hasChild(current_user_id))
+                {
+                    SendUserToSetupActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    private void SendUserToSetupActivity()
+    {
+        Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
+        setupIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(setupIntent);
+        finish();
     }
 
 
