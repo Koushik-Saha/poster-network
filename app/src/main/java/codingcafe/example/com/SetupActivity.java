@@ -34,6 +34,7 @@ import java.util.HashMap;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+//@SuppressWarnings("unchecked")
 public class SetupActivity extends AppCompatActivity
 {
     private EditText UserName, FullName, CountryName;
