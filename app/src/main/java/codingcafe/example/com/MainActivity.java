@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         currentUserID = mAuth.getCurrentUser().getUid();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
-//        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
+        PostsRef = FirebaseDatabase.getInstance().getReference().child("Posts");
 
 
         mToolbar = (Toolbar) findViewById(R.id.main_page_toolbar);
@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
 
 
-//        postList = (RecyclerView) findViewById(R.id.all_users_post_list);
-//        postList.setHasFixedSize(true);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.setReverseLayout(true);
-//        linearLayoutManager.setStackFromEnd(true);
-//        postList.setLayoutManager(linearLayoutManager);
+        postList = (RecyclerView) findViewById(R.id.all_users_post_list);
+        postList.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        postList.setLayoutManager(linearLayoutManager);
 
 
 
@@ -143,6 +143,86 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+
+        DisplayAllUsersPosts();
+
+    }
+
+
+
+    private void DisplayAllUsersPosts()
+    {
+        FirebaseRecyclerAdapter<Posts, PostsViewHolder> firebaseRecyclerAdapter =
+                new FirebaseRecyclerAdapter<Posts, PostsViewHolder>
+                        (
+                                Posts.class,
+                                R.layout.all_posts_layout,
+                                PostsViewHolder.class,
+                                PostsRef
+                        )
+                {
+                    @Override
+                    protected void populateViewHolder(PostsViewHolder viewHolder, Posts model, int position)
+                    {
+                        viewHolder.setFullname(model.getFullname());
+                        viewHolder.setTime(model.getTime());
+                        viewHolder.setDate(model.getDate());
+                        viewHolder.setDescription(model.getDescription());
+                        viewHolder.setProfileimage(getApplicationContext(), model.getProfileimage());
+                        viewHolder.setPostimage(getApplicationContext(), model.getPostimage());
+                    }
+                };
+        postList.setAdapter(firebaseRecyclerAdapter);
+    }
+
+
+
+    public static class PostsViewHolder extends RecyclerView.ViewHolder
+    {
+        View mView;
+
+        public PostsViewHolder(View itemView)
+        {
+            super(itemView);
+            mView = itemView;
+        }
+
+        public void setFullname(String fullname)
+        {
+            TextView username = (TextView) mView.findViewById(R.id.post_user_name);
+            username.setText(fullname);
+        }
+
+        public void setProfileimage(Context ctx, String profileimage)
+        {
+            CircleImageView image = (CircleImageView) mView.findViewById(R.id.post_profile_image);
+            Picasso.with(ctx).load(profileimage).into(image);
+        }
+
+        public void setTime(String time)
+        {
+            TextView PostTime = (TextView) mView.findViewById(R.id.post_time);
+            PostTime.setText("    " + time);
+        }
+
+        public void setDate(String date)
+        {
+            TextView PostDate = (TextView) mView.findViewById(R.id.post_date);
+            PostDate.setText("    " + date);
+        }
+
+        public void setDescription(String description)
+        {
+            TextView PostDescription = (TextView) mView.findViewById(R.id.post_description);
+            PostDescription.setText(description);
+        }
+
+        public void setPostimage(Context ctx1,  String postimage)
+        {
+            ImageView PostImage = (ImageView) mView.findViewById(R.id.post_image);
+            Picasso.with(ctx1).load(postimage).into(PostImage);
+        }
     }
 
 
