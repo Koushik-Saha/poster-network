@@ -87,8 +87,6 @@ public class MainActivity extends AppCompatActivity
         postList.setLayoutManager(linearLayoutManager);
 
 
-
-
         View navView = navigationView.inflateHeaderView(R.layout.navigation_header);
         NavProfileImage = (CircleImageView) navView.findViewById(R.id.nav_profile_image);
         NavProfileUserName = (TextView) navView.findViewById(R.id.nav_user_full_name);
@@ -124,7 +122,6 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item)
@@ -144,9 +141,7 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
         DisplayAllUsersPosts();
-
     }
 
 
@@ -165,12 +160,27 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     protected void populateViewHolder(PostsViewHolder viewHolder, Posts model, int position)
                     {
+                        final String PostKey = getRef(position).getKey();
+
+
                         viewHolder.setFullname(model.getFullname());
                         viewHolder.setTime(model.getTime());
                         viewHolder.setDate(model.getDate());
                         viewHolder.setDescription(model.getDescription());
                         viewHolder.setProfileimage(getApplicationContext(), model.getProfileimage());
                         viewHolder.setPostimage(getApplicationContext(), model.getPostimage());
+
+
+                        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v)
+                            {
+                                Intent clickPostIntent = new Intent(MainActivity.this, ClickPostActivity.class);
+                                clickPostIntent.putExtra("PostKey",PostKey);
+                                startActivity(clickPostIntent);
+
+                            }
+                        });
                     }
                 };
         postList.setAdapter(firebaseRecyclerAdapter);
@@ -227,16 +237,12 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
+    private void SendUserToPostActivity()
     {
-        if(actionBarDrawerToggle.onOptionsItemSelected(item))
-        {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
+        startActivity(addNewPostIntent);
     }
+
 
 
     @Override
@@ -255,6 +261,7 @@ public class MainActivity extends AppCompatActivity
             CheckUserExistence();
         }
     }
+
 
 
     private void CheckUserExistence()
@@ -279,6 +286,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
     private void SendUserToSetupActivity()
     {
         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
@@ -286,6 +294,7 @@ public class MainActivity extends AppCompatActivity
         startActivity(setupIntent);
         finish();
     }
+
 
 
     private void SendUserToLoginActivity()
@@ -297,10 +306,16 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void SendUserToPostActivity()
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
     {
-        Intent addNewPostIntent = new Intent(MainActivity.this, PostActivity.class);
-        startActivity(addNewPostIntent);
+        if(actionBarDrawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 
