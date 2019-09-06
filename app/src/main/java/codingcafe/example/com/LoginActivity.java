@@ -125,8 +125,8 @@ public class LoginActivity extends AppCompatActivity
 
         if (requestCode == RC_SIGN_IN)
         {
-            loadingBar.setTitle("Google Sign In");
-            loadingBar.setMessage("Please wait, while we are allowing you to login using your Google Account...");
+            loadingBar.setTitle("google Sign In");
+            loadingBar.setMessage("Please wait, while we are allowing you to login using your Google Account.");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 
@@ -136,7 +136,7 @@ public class LoginActivity extends AppCompatActivity
             {
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
-                Toast.makeText(this, "Please wait, while we are getting your auth result...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Please wait, while we are getting your auth result.", Toast.LENGTH_SHORT).show();
             }
             else
             {
@@ -198,16 +198,16 @@ public class LoginActivity extends AppCompatActivity
 
         if(TextUtils.isEmpty(email))
         {
-            Toast.makeText(this, "Please write your email.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please write your email...", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(password))
         {
-            Toast.makeText(this, "Please write your password.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please write your password...", Toast.LENGTH_SHORT).show();
         }
         else
         {
             loadingBar.setTitle("Login");
-            loadingBar.setMessage("Please wait, while we are allowing you to login into your Account...");
+            loadingBar.setMessage("Please wait, while we are allowing you to login into your Account.");
             loadingBar.setCanceledOnTouchOutside(true);
             loadingBar.show();
 
