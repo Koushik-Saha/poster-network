@@ -215,8 +215,9 @@ public class SetupActivity extends AppCompatActivity
         {
             loadingBar.setTitle("Saving Information");
             loadingBar.setMessage("Please wait, while we are creating your new Account.");
-            loadingBar.show();
             loadingBar.setCanceledOnTouchOutside(true);
+            loadingBar.show();
+
 
             HashMap userMap = new HashMap();
             userMap.put("username", username);
