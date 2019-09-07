@@ -349,6 +349,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_settings:
+                SendUserToSettingsActivity();
                 Toast.makeText(this, "Settings", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -357,5 +358,12 @@ public class MainActivity extends AppCompatActivity
                 SendUserToLoginActivity();
                 break;
         }
+    }
+
+
+    private void SendUserToSettingsActivity()
+    {
+        Intent loginIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(loginIntent);
     }
 }
