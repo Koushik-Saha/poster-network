@@ -3,10 +3,12 @@ package codingcafe.example.com;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,15 +22,21 @@ public class ClickPostActivity extends AppCompatActivity
     private ImageView PostImage;
     private TextView PostDescription;
     private Button DeletePostButton, EditPostButton;
-    private DatabaseReference ClickPostRef;
 
-    private String PostKey;
+    private DatabaseReference ClickPostRef;
+    private FirebaseAuth mAuth;
+
+    private String PostKey, currentUserID, databaseUserID, description, image;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_click_post);
+
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUserID = mAuth.getCurrentUser().getUid();
 
 
         PostKey = getIntent().getExtras().get("PostKey").toString();
@@ -41,16 +49,27 @@ public class ClickPostActivity extends AppCompatActivity
         DeletePostButton = (Button) findViewById(R.id.delete_post_button);
 
 
+        DeletePostButton.setVisibility(View.INVISIBLE);
+        EditPostButton.setVisibility(View.INVISIBLE);
+
+
         ClickPostRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                String description = dataSnapshot.child("description").getValue().toString();
-                String image = dataSnapshot.child("postimage").getValue().toString();
+                description = dataSnapshot.child("description").getValue().toString();
+                image = dataSnapshot.child("postimage").getValue().toString();
+                databaseUserID = dataSnapshot.child("uid").getValue().toString();
 
 
                 PostDescription.setText(description);
                 Picasso.with(ClickPostActivity.this).load(image).into(PostImage);
+
+                if (currentUserID.equals(databaseUserID))
+                {
+                    DeletePostButton.setVisibility(View.VISIBLE);
+                    EditPostButton.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

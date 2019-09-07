@@ -213,13 +213,13 @@ public class MainActivity extends AppCompatActivity
         public void setTime(String time)
         {
             TextView PostTime = (TextView) mView.findViewById(R.id.post_time);
-            PostTime.setText("    " + time);
+            PostTime.setText(" " + time);
         }
 
         public void setDate(String date)
         {
             TextView PostDate = (TextView) mView.findViewById(R.id.post_date);
-            PostDate.setText("    " + date);
+            PostDate.setText(" " + date);
         }
 
         public void setDescription(String description)
