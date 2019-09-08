@@ -23,14 +23,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="55dp">
+            android:layout_below="@id/main_page_toolbar">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/all_users_post_list"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignStart="@+id/main_container" />
+                android:layout_height="match_parent" />
+
+
         </FrameLayout>
 
 
@@ -40,14 +40,15 @@
             android:layout_height="48dp"
             android:layout_above="@+id/main_container"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="14dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="-51dp"
-            android:background="@color/colorPrimaryDark"
-            android:baselineAlignBottom="true"
-            android:focusableInTouchMode="true"
+            android:src="@drawable/add_post_high"
             android:scaleType="centerCrop"
-            android:src="@drawable/add_post_high" />
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="12dp"
+            android:background="@color/colorPrimaryDark"
+            android:baselineAlignBottom="false"
+            android:focusableInTouchMode="false"
+
+             />
 
     </RelativeLayout>
 
