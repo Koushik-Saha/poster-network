@@ -30,6 +30,7 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:textColor="@android:color/white"
         android:padding="10dp" />
 
     <EditText
@@ -73,6 +74,7 @@
         android:text="Don't have an Account, Need New Account"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:textColor="@color/colorProfile"
         android:textStyle="bold"/>
 
     <TextView
@@ -84,6 +86,7 @@
         android:layout_marginTop="19dp"
         android:text="Or Login With"
         android:textAlignment="center"
+        android:textColor="@color/colorProfile"
         android:textSize="16sp"
         android:textStyle="bold"/>
 

@@ -33,7 +33,7 @@
         android:text="Post Description"
         android:background="@drawable/inputs"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
 
