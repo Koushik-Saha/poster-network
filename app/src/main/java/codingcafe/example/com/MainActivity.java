@@ -329,6 +329,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.nav_profile:
+                SendUserToProfileActivity();
                 Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
                 break;
 
@@ -364,6 +365,12 @@ public class MainActivity extends AppCompatActivity
     private void SendUserToSettingsActivity()
     {
         Intent loginIntent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(loginIntent);
+    }
+
+    private void SendUserToProfileActivity()
+    {
+        Intent loginIntent = new Intent(MainActivity.this, ProfileActivity.class);
         startActivity(loginIntent);
     }
 }
