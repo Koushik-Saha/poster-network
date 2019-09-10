@@ -50,7 +50,7 @@
             android:textColorHint="@color/colorProfile"/>
 
 
-        <ImageView
+        <ImageButton
             android:id="@+id/search_people_friends_button"
             android:layout_width="70dp"
             android:layout_height="50dp"
@@ -70,8 +70,7 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/myLayout"
-        android:layout_margin="10dp"
-        >
+        android:layout_margin="10dp">
     </android.support.v7.widget.RecyclerView>
 
 
