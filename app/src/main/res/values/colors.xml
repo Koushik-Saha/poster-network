@@ -12,4 +12,7 @@
     <color name="colorWhite">#ffffff</color>
 
     <color name="colorHint">#ffffff</color>
+
+
+    <color name="mainBackground">#D7D7D7</color>
 </resources>
