@@ -15,4 +15,6 @@
 
 
     <color name="mainBackground">#D7D7D7</color>
+
+    <color name="colorFindProfile">#808000</color>
 </resources>
