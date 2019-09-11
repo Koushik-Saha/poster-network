@@ -4,6 +4,7 @@ package codingcafe.example.com;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -27,7 +28,7 @@ public class PersonProfileActivity extends AppCompatActivity
     private DatabaseReference porfileUserRef, UsersRef;
     private FirebaseAuth mAuth;
 
-    private String senderUserId, receiverUserId;
+    private String senderUserId, receiverUserId, CURRENT_STATE;
 
 
     @Override
@@ -37,6 +38,7 @@ public class PersonProfileActivity extends AppCompatActivity
         setContentView(R.layout.activity_person_profile);
 
         mAuth = FirebaseAuth.getInstance();
+        senderUserId = mAuth.getCurrentUser().getUid();
 
         receiverUserId = getIntent().getExtras().get("visit_user_id").toString();
         UsersRef = FirebaseDatabase.getInstance().getReference().child("Users");
@@ -81,6 +83,28 @@ public class PersonProfileActivity extends AppCompatActivity
 
             }
         });
+
+
+        DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+        DeclineFriendRequestButton.setEnabled(false);
+
+
+        if (!senderUserId.equals(receiverUserId))
+        {
+            SendFriendReqButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v)
+                {
+                    SendFriendReqButton.setEnabled(false);
+                }
+            });
+        }
+        else
+        {
+            DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+            SendFriendReqButton.setVisibility(View.INVISIBLE);
+        }
+
     }
 
     private void IntializeFields()
@@ -96,6 +120,8 @@ public class PersonProfileActivity extends AppCompatActivity
 
         SendFriendReqButton = (Button) findViewById(R.id.person_send_friend_request_btn);
         DeclineFriendRequestButton = (Button) findViewById(R.id.person_decline_friend_request);
+
+        CURRENT_STATE = "not_friends";
 
     }
 }
