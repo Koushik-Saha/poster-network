@@ -28,10 +28,10 @@
         android:background="@drawable/inputs"
         android:drawableLeft="@drawable/email"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Enter Valid Email"
         android:inputType="textEmailAddress"
-        android:textColor="@android:color/white"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/login_password"
