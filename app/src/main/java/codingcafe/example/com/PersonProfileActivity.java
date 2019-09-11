@@ -109,6 +109,10 @@ public class PersonProfileActivity extends AppCompatActivity
                     {
                         SendFriendRequestToaPerson();
                     }
+                    if (CURRENT_STATE.equals("request_sent"))
+                    {
+                        CancelFriendRequest();
+                    }
                 }
             });
         }
@@ -117,6 +121,41 @@ public class PersonProfileActivity extends AppCompatActivity
             DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
             SendFriendReqButton.setVisibility(View.INVISIBLE);
         }
+
+    }
+
+    private void CancelFriendRequest()
+    {
+        FriendRequestRef.child(senderUserId).child(receiverUserId)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            FriendRequestRef.child(receiverUserId).child(senderUserId)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if (task.isSuccessful())
+                                            {
+                                                SendFriendReqButton.setEnabled(true);
+                                                CURRENT_STATE = "not_friends";
+                                                SendFriendReqButton.setText("Send Friend Request");
+
+                                                DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                                                DeclineFriendRequestButton.setEnabled(false);
+                                            }
+
+                                        }
+                                    });
+                        }
+
+                    }
+                });
 
     }
 
