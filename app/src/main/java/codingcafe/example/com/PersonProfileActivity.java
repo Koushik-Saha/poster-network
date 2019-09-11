@@ -122,6 +122,11 @@ public class PersonProfileActivity extends AppCompatActivity
                     {
                         AcceptFriendRequest();
                     }
+                    if (CURRENT_STATE.equals("friends"))
+                    {
+                        UnFriendAnExistingFriend();
+                    }
+
                 }
             });
         }
@@ -131,6 +136,40 @@ public class PersonProfileActivity extends AppCompatActivity
             SendFriendReqButton.setVisibility(View.INVISIBLE);
         }
 
+    }
+
+    private void UnFriendAnExistingFriend()
+    {
+        FriendsRef.child(senderUserId).child(receiverUserId)
+                .removeValue()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            FriendsRef.child(receiverUserId).child(senderUserId)
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task)
+                                        {
+                                            if (task.isSuccessful())
+                                            {
+                                                SendFriendReqButton.setEnabled(true);
+                                                CURRENT_STATE = "not_friends";
+                                                SendFriendReqButton.setText("Send Friend Request");
+
+                                                DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                                                DeclineFriendRequestButton.setEnabled(false);
+                                            }
+
+                                        }
+                                    });
+                        }
+
+                    }
+                });
     }
 
     private void AcceptFriendRequest()
@@ -257,7 +296,41 @@ public class PersonProfileActivity extends AppCompatActivity
 
                                 DeclineFriendRequestButton.setVisibility(View.VISIBLE);
                                 DeclineFriendRequestButton.setEnabled(true);
+
+
+                                DeclineFriendRequestButton.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v)
+                                    {
+                                        CancelFriendRequest();
+
+                                    }
+                                });
                             }
+                        }
+                        else
+                        {
+                            FriendsRef.child(senderUserId)
+                                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot)
+                                        {
+                                            if (dataSnapshot.hasChild(receiverUserId))
+                                            {
+                                                CURRENT_STATE = "friends";
+                                                SendFriendReqButton.setText("Unfriend this Person");
+
+                                                DeclineFriendRequestButton.setVisibility(View.INVISIBLE);
+                                                DeclineFriendRequestButton.setEnabled(false);
+                                            }
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+
+                                        }
+                                    });
                         }
 
                     }
