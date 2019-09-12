@@ -16,18 +16,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="5dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/all_users_profile_full_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Full Name"
-            android:textAlignment="textStart"
-            android:textColor="@color/colorWhite"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:id="@+id/all_users_profile_full_name"
+                android:layout_width="190dp"
+                android:layout_height="wrap_content"
+                android:text="User Full Name"
+                android:textAlignment="textStart"
+                android:textColor="@color/colorWhite"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            
+            
+            <ImageButton
+                android:id="@+id/all_user_online_icon"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/online"
+                android:visibility="invisible"
+                />
+
+
+
+        </LinearLayout>
 
 
         <TextView
