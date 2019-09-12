@@ -17,4 +17,11 @@
     <color name="mainBackground">#D7D7D7</color>
 
     <color name="colorFindProfile">#808000</color>
+
+    <color name="senderColor">#C0FF00</color>
+    <color name="receiverColor">#C0FF00</color>
+    <color name="colorMessage">#00C040</color>
+    <color name="colorMessageBlack">#000000</color>
+
+
 </resources>
