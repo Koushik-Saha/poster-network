@@ -22,6 +22,8 @@
     <color name="receiverColor">#C0FF00</color>
     <color name="colorMessage">#00C040</color>
     <color name="colorMessageBlack">#000000</color>
+    <color name="colorTeals">#004040</color>
+    <color name="colorViolets">#400040</color>
 
 
 </resources>

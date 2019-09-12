@@ -19,7 +19,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/myLinearLayout"
         android:layout_below="@+id/chat_bar_layout"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorMessageBlack"
         android:layout_centerHorizontal="true">
 
     </android.support.v7.widget.RecyclerView>

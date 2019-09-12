@@ -37,8 +37,8 @@
             
             <ImageButton
                 android:id="@+id/all_user_online_icon"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:src="@drawable/online"
                 android:visibility="invisible"
                 />
