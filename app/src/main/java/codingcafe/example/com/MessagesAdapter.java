@@ -37,12 +37,12 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        View v = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.message_layout_of_users, parent, false);
 
         mAuth = FirebaseAuth.getInstance();
 
-        return new MessageViewHolder(v);
+        return new MessageViewHolder(view);
 
     }
 
@@ -50,7 +50,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     public void onBindViewHolder(@NonNull final MessageViewHolder holder, int position)
     {
         String messageSenderID = mAuth.getCurrentUser().getUid();
-        Messages messages = userMessagesList.get(position);
+        final Messages messages = userMessagesList.get(position);
 
         String fromUserID = messages.getFrom();
         String fromMessageType = messages.getType();

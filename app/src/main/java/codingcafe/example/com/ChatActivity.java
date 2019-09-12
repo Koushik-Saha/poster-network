@@ -155,11 +155,11 @@ public class ChatActivity extends AppCompatActivity
 
 
             Map messageTextBody = new HashMap();
-                messageTextBody.put("message", messageText);
-                messageTextBody.put("time", saveCurrentTime);
-                messageTextBody.put("date", saveCurrentDate);
-                messageTextBody.put("type", "text");
-                messageTextBody.put("from", messageSenderID);
+            messageTextBody.put("message", messageText);
+            messageTextBody.put("time", saveCurrentTime);
+            messageTextBody.put("date", saveCurrentDate);
+            messageTextBody.put("type", "text");
+            messageTextBody.put("from", messageSenderID);
 
             Map messageBodyDetails = new HashMap();
             messageBodyDetails.put(message_sender_ref + "/" + message_push_id , messageTextBody);

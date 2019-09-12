@@ -1,8 +1,11 @@
 package codingcafe.example.com;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -24,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity
 
     private DatabaseReference porfileUserRef;
     private FirebaseAuth mAuth;
+    private Button MyPosts, MyFriends;
 
     private String currentUserId;
 
@@ -45,6 +49,28 @@ public class ProfileActivity extends AppCompatActivity
         userRelation = (TextView) findViewById(R.id.my_relationship_status);
         userDOB = (TextView) findViewById(R.id.my_dob);
         userProfileImage = (CircleImageView) findViewById(R.id.my_profile_pic);
+        MyFriends = (Button) findViewById(R.id.my_friends_button);
+        MyPosts = (Button) findViewById(R.id.my_post_button);
+
+
+        MyFriends.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SendUserToFriendsActivity();
+            }
+        });
+
+
+        MyPosts.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                SendUserToPostsActivity();
+            }
+        });
 
         porfileUserRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -83,5 +109,17 @@ public class ProfileActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    private void SendUserToFriendsActivity()
+    {
+        Intent loginIntent = new Intent(ProfileActivity.this, FriendsActivity.class);
+        startActivity(loginIntent);
+    }
+
+    private void SendUserToPostsActivity()
+    {
+        Intent loginIntent = new Intent(ProfileActivity.this, MyPostsActivity.class);
+        startActivity(loginIntent);
     }
 }
