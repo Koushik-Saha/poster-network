@@ -25,11 +25,12 @@ public class ProfileActivity extends AppCompatActivity
     private TextView userName, userProfName, userStatus, userCountry, userGender, userRelation, userDOB;
     private CircleImageView userProfileImage;
 
-    private DatabaseReference porfileUserRef;
+    private DatabaseReference porfileUserRef, FriendsRef;
     private FirebaseAuth mAuth;
     private Button MyPosts, MyFriends;
 
     private String currentUserId;
+    private int countFriends = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class ProfileActivity extends AppCompatActivity
         mAuth = FirebaseAuth.getInstance();
         currentUserId = mAuth.getCurrentUser().getUid();
         porfileUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        FriendsRef = FirebaseDatabase.getInstance().getReference().child("Friends");
 
 
         userName = (TextView) findViewById(R.id.my_username);
@@ -69,6 +71,28 @@ public class ProfileActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 SendUserToPostsActivity();
+            }
+        });
+
+
+        FriendsRef.child(currentUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if (dataSnapshot.exists())
+                {
+                    countFriends = (int) dataSnapshot.getChildrenCount();
+                    MyFriends.setText(Integer.toString(countFriends) + "  Friends");
+                }
+                else
+                {
+                    MyFriends.setText("0 Friends");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
 
