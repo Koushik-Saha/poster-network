@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     String currentUserID;
     Boolean LikeChecker = false;
+    private int nav_find_friends;
 
 
     @Override
